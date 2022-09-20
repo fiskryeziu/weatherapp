@@ -47,6 +47,7 @@ const App = () => {
           type="text"
           value={input}
           required
+          placeholder="Search..."
           onChange={(e) => setInput(e.target.value)}
         />
         <button type="submit">Search</button>
