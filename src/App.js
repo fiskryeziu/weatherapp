@@ -10,7 +10,7 @@ const App = () => {
   const [error, setError] = useState(false)
   const fetchWeather = async () => {
     setLoading(true)
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=Prizren&appid=${process.env.REACT_APP_WEATHER_KEY}`
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=prizren&appid=${process.env.REACT_APP_WEATHER_KEY}`
     const { data } = await axios.get(url)
     setWeatherData(data)
     setLoading(false)
@@ -25,6 +25,7 @@ const App = () => {
       setLoading(true)
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${process.env.REACT_APP_WEATHER_KEY}`
       const { data } = await axios.get(url)
+      setError(false)
       setWeatherData(data)
       setInput('')
       setLoading(false)
@@ -35,8 +36,10 @@ const App = () => {
           ? err.response.data.message
           : err.message
 
+      setLoading(false)
       setError(true)
       setMessage(message)
+      setInput('')
     }
   }
   return (
@@ -48,7 +51,7 @@ const App = () => {
           value={input}
           required
           placeholder="Search..."
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value.toLowerCase())}
         />
         <button type="submit">Search</button>
       </form>
